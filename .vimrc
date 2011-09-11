@@ -73,7 +73,7 @@
     "}
 
     "Buffers {
-        map <S-b> :b
+        map <S-b> :b 
         map <S-z> :b#<CR>
     "}
     " Switch from .h to .C{
@@ -227,10 +227,6 @@
 
     "Todo list toggle {
         map <C-g> :TDlist <CR>
-    "}
-
-    "Gnome style align arguments {
-        nmap <Leader>a :GNOMEAlignArguments<CR>
     "}
 
     "Blogspot{
