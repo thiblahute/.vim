@@ -28,7 +28,7 @@
 
 "Indentation options {
     set cindent
-    set cinoptions={.5s,+.5s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s,(0=
+    "set cinoptions={.5s,+.5s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s,(0=
     set shiftwidth=2
     set tabstop=2
     set expandtab    " use spaces instead of tabs
