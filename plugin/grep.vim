@@ -452,7 +452,6 @@ endfunction
 " RunGrepRecursive()
 " Run specified grep command recursively
 function! s:RunGrepRecursive(cmd_name, grep_cmd, action, ...)
-    tabnew
     if a:0 > 0 && (a:1 == "-?" || a:1 == "-h")
         echo 'Usage: ' . a:cmd_name . " [<grep_options>] [<search_pattern> " .
                         \ "[<file_name(s)>]]"

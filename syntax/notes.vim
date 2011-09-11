@@ -53,7 +53,7 @@ syn match notesBreak /\s\+-\{61,\}/
 
 " Highlight strings
 syn region notesString start=/"/ skip=/\\\\\|\\"/ end=/"/ 
-syn region notesString start=/'/ skip=/\\\\\|\\'/ end=/'/
+"syn region notesString start=/'/ skip=/\\\\\|\\'/ end=/'/
 
 " Highlight keyword (within `s)
 syn region notesKey start=/`/ skip=/\\\\\|\\`/ end=/`/ oneline
@@ -78,8 +78,8 @@ set wrap formatoptions+=t textwidth=80
 " The keywords listed here will be highlighted -- add your own
 syn keyword todoTodo        contained TODO FIXME DONE PITIVI UPLA EPSI 
 " TODO: make this a user-defined global: g:TodoKeywords='foo,bar,baz'
-syn keyword todoImportant   Pitivi Ask Hint help unittest core gui IA Metodologia Sociologia devel Proyecto estudiar definition
-syn keyword todoImportant   contained Pitivi Ask Hint help unittest core IA Metodologia Sociologia devel Proyecto estudiar definition
+syn keyword todoImportant   Pitivi Ask Hint help unittest core gui IA Metodologia Sociologia devel Proyecto estudiar definition ui
+syn keyword todoImportant   contained Pitivi Ask Hint help unittest core IA Metodologia Sociologia devel Proyecto estudiar definition ui
 syn keyword todoAlias       Padres Chargers Burritos
 syn keyword todoAlias       contained Padres Chargers Burritos
 
@@ -163,8 +163,6 @@ hi def link notesString String
 hi def link notesKey SpecialChar
 hi  notesItalic gui=italic term=italic cterm=italic
 hi  notesBold gui=bold term=bold cterm=bold
-hi Comment ctermfg=green
-hi String ctermfg=red
 
 let b:current_syntax = "todolist"
 

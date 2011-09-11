@@ -47,6 +47,12 @@ function! s:todo_list_retrive(flags)
             let l:out_count=l:out_count+1
         endif
     endwhile
+    while search('FIXME','W')>0
+        if matchend(synIDattr(synID(line("."),col("."),1),"name"),"Todo")
+            let l:out_line_{l:out_count}=line(".").' '.strpart(getline(line(".")),col(".")+4)
+            let l:out_count=l:out_count+1
+        endif
+    endwhile
     call s:toggle_todo_list()
     setlocal modifiable
     let l:total = line('$')

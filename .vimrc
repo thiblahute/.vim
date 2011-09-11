@@ -3,39 +3,44 @@
     let maplocalleader = ','
     set nobackup
     set backspace=indent,eol,start
-    set showcmd	" display incomplete commands
+    set showcmd " display incomplete commands
     set number
     syn on          " syntax highlighting
-    set ruler       "We have the vertical position 
-    set mouse=a
+    set ruler       "We have the vertical position
+    set mouse=r
     set hlsearch
     set encoding=utf-8 fileencodings=.
     filetype plugin on "read filtype dir
+    set hidden "Let you have unsaved buffers
+    " Disable this fuckink ex mode
+    :map Q <Nop>
+
 "}
 
- 
+
 " Menu to switch between options {
-    set wildmode=longest,full 
+    set wildmode=longest,full
     set wildmenu
-    set wildignore=*.swp,!,7,Makefile.*,<,Session.vim, " Seront ignores par le wildmenu les fichiers correspondants aux criteres du wildignore
+    set wildignore=*.swp,!,7,Makefile,<,Session.vim, " Seront ignores par le wildmenu les fichiers correspondants aux criteres du wildignore
     set suffixes=.aux,.bak,.bbl,.blg,.gif,.gz,.idx,.ilg,.info,.jpg,.lof,.log,;lot,.o,.obj,.pdf,.png,.swp,.tar,.toc,~,mount,in,pyc,pyo "unsed suffixes
     let g:netrw_list_hide='\.aux$,\.bak$,\.bbl$,\.blg$,\.gif$,\.gz$,\.idx$,\.ilg$,\.info$,\.jpg$,\.lof$,\.log$,\.o$,\.obj$,\.pdf$,\.png$,\.swp$,\.tar$,\.toc$,\.mount$,\.pyc$,\.pyo$,\.lo$\,\.git/$,' "unsed suffixes on file list
 "}
 
 "Indentation options {
     set cindent
-    set cinoptions={.5s,+.5s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s,(0= 
-    set shiftwidth=4
-    set tabstop=4
+    set cinoptions={.5s,+.5s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s,(0=
+    set shiftwidth=2
+    set tabstop=2
     set expandtab    " use spaces instead of tabs
     set ro nowrap   " Never go back to line
 "}
 
 "Theme options{
     colorscheme default
+    hi SpellBad term=reverse ctermbg=Green
 "}
 
-"maping { 
+"maping {
 
     "Errors handling {
     map <C-n> :cn<CR>
@@ -43,35 +48,82 @@
     "}
 
     "Fold handling"
-    set foldmethod=syntax
-    nmap <F2> 0v/{<CR>%zf
+    "set foldmethod=syntax
+    nmap <F2> 0v/{<CR>%zF
+    nmap <F2> 0v/{<CR>%zD
 
     "tabs handling {
-        map <C-left> :tabp<CR>
-        map<C-right> :tabn<CR>
-        map <C-t> :tabnew <CR>
+        "map <C-t> :tabnew <CR>
+        "nmap <C-tab> :tabn<CR>
+    "}
+
+    "split handling {
+        map <C-t> :vsplit<CR>
     "}
 
     "Switch between splited view {
+        map <C-left> <c-w>h
+        map<C-right> <c-w>l
         map <c-down> <c-w>j
-        map <c-l> <c-w>l
-        map <c-h> <c-w>h
         map <c-up> <c-w>k
     "}
+
+    "Stop searching with F8 {
+        map <F8> :noh<CR>
+    "}
+
+    "Buffers {
+        map <S-b> :b
+        map <S-z> :b#<CR>
+    "}
+    " Switch from .h to .C{
+      map <C-h> :A<CR>
+    "}
+
+    " Languages handling {
+      map <C-F7> :setlocal spell spelllang=en<CR>
+      map <C-F8> :setlocal spell spelllang=fr<CR>
+      map <C-F9> :setlocal spell spelllang=en,fr<CR>
+      map <C-F10> :setlocal spell spelllang=<CR>
+    "}
+
+
 "}
- 
+"{ Trailling whutespaces
+    set list
+    set lcs:tab:>-,trail:X
+"}
 "languages specific {
 
     "Make specific {
-        command -nargs=* Make make <args> | cwindow 3
-        map <Leader>m :Make<CR> 
+        "command -nargs=* Make make <args> | cwindow 3
+        map <Leader>m :make<CR>
+        autocmd QuickFixCmdPost [^l]* nested cwindow
+        autocmd QuickFixCmdPost    l* nested lwindow
     "}
 
-    "GLib gtk configs {
-        autocmd BufRead *.c set keywordprg=keywordprg
-        set tags+=/home/thibault/.vim/tags/gtk+.vim "Add gtk autocompletion
-        set tags+=/home/thibault/.vim/tags/glib.vim "Add glib autocompletion
-        set tags+=/home/thibault/.vim/tags/libgdata.vim "Add glib autocompletion
+    "GLib gtk configs { SHOULD be necessary
+        "autocmd BufRead *.c set keywordprg=keywordprg
+        "set tags+=/home/thiblahute/.vim/tags/gtk+.vim "Add gtk autocompletion
+        "set tags+=/home/thiblahute/.vim/tags/glib.vim "Add glib autocompletion
+        "set tags+=/home/thiblahute/.vim/tags/libgdata.vim "Add glib autocompletion
+
+        set tags+=~/.vim/tags/gst
+        set tags+=~/.vim/tags/glib
+        set tags+=~/.vim/tags/gl
+        " build tags of your own project with CTRL+F12
+       "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+       noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+       inoremap <F12> <Esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+
+       " OmniCppComplete
+       let OmniCpp_NamespaceSearch = 1
+       let OmniCpp_GlobalScopeSearch = 1
+       let OmniCpp_ShowAccess = 1
+       let OmniCpp_MayCompleteDot = 1
+       let OmniCpp_MayCompleteArrow = 1
+       let OmniCpp_MayCompleteScope = 1
+
     "}
 
     "Javascript Html {
@@ -93,14 +145,31 @@
     "}
 
     "python {
-        autocmd FileType python set omnifunc=pythoncomplete#Complete
         au BufRead,BufNewFile *.py            setfiletype python
-        let python_highlight_all = 1 
+        let python_highlight_all = 1
+        map <silent> <F4> "<Esc>:w!<cr>:!python %<cr>"
+        autocmd FileType python compiler pylint
+        let g:pylint_onwrite = 0
+        autocmd FileType python set omnifunc=pythoncomplete#Complete
+        autocmd FileType python set shiftwidth=4
+        autocmd FileType python set tabstop=4
+        let g:pydiction_location = '/home/thiblahute/.vim/ftplugin/pydiction/complete-dict'
+        "autocmd FileType python autocmd BufWritePre <buffer> let s:saveview = winsaveview() | exe '%!PythonTidy.py' | call winrestview(s:saveview) | unlet s:saveview
+        "let g:pep8_map=u'F8'
+    "}
+    "wiki {
+      au BufNewFile,BufRead *.wiki setf Wikipedia
     "}
 
     "Latex specific {
         set grepprg=grep\ -nH\ $*
         let g:tex_flavor='latex'
+        let g:tex_fold_disable=1
+        "imap <buffer> <m-c> <Plug>Tex_InsertItemOnThisLine
+        "imap <buffer> <leader>it <Plug>Tex_InsertItemOnThisLine
+        autocmd FileType latex setlocal spell spelllang=fr
+        autocmd FileType latex set wrap
+        imap <C-space> <Plug>IMAP_JumpForward
     " }
 
 "}
@@ -118,19 +187,19 @@
     "Project {
         let g:proj_flags='imstbc'
     "}
-     
+
     "tSkeleton {
         autocmd BufNewFile *.notes       TSkeletonSetup notes.notes "Notes skeleton
         autocmd BufNewFile *.py       TSkeletonSetup py.py "Notes skeleton
         let g:tskelUserName   = 'Thibault Saunier'
-        let g:tskelUserEmail  = 'tsaunier@gnome.org'
+        let g:tskelUserEmail  = 'thibaul.saunier@collabora.com'
         let g:tskelUserWWW    = 'http://www.thiblahute.blogspot.com'
         let g:tskelLicense    = 'GPL'
         let g:tskelDateFormat = '%Y'
     "}
 
     "MRU (most recently used) {
-        let MRU_File = '/home/thibault/.local/share/vim/rmu_files'
+        let MRU_File = '/home/thiblahute/.local/share/vim/rmu_files'
         :map <C-o> :MRU <CR>
     "}
 
@@ -138,9 +207,22 @@
         let NERDTreeIgnore=['\.aux$', '\.bak$', '\.bbl$','\.blg$','\.gif$','\.gz$','\.idx$','\.ilg$','\.info$','\.jpg$','\.lof$','\.log$','\.o$','\.obj$','\.pdf$','\.png$','\.swp$','\.tar$','\.toc$','\.mount$','\.pyc$','\.pyo$','\.lo$','\.tgz$'] "unsed suffixes on file list
         map <C-e> :NERDTree <CR>
     " }
+    "
+    "Devhelp {
+       let g:devhelpSearch=1
+       let g:devhelpSearchKey = '<F3>'
+    "}
 
     "Dpaste {
-        map <c-p> :Dpaste<CR>
+        "map <c-p> :Dpaste<CR>
+    "}
+
+    "Bike {
+        "map <C-z> :BikeRename<CR>
+    "}
+
+    "FindFile {
+         nmap <C-f> :FindFile<CR>
     "}
 
     "Todo list toggle {
@@ -152,15 +234,41 @@
     "}
 
     "Blogspot{
-        nnoremap <Leader>blog :! bg.py --f %:p --u my@email.com  --p inline<cr> 
+        nnoremap <Leader>blog :! bg.py --f %:p --u my@email.com  --p inline<cr>
+    "}
+    " clang completion {
+         " SuperTab option for context aware completion
+         let g:SuperTabDefaultCompletionType = "context"
+
+         " Disable auto popup, use <Tab> to autocomplete
+         let g:clang_complete_auto = 0
+         " Show clang errors in the quickfix window
+         let g:clang_complete_copen = 1
     "}
 "}
 
 
+"My functions {
+    fun CleanText()
+         let curcol = col(".")
+         let curline = line(".")
+         exe ":retab"
+    " $//ge"xe ":%s/
+    " / /ge"xe ":%s/
+         exe ":%s/ \\+$//e"
+         call cursor(curline, curcol)
+    endfun
+    map <F6> :call CleanText()<CR>
+"}
 "Pdf handlng{
     autocmd BufReadPost *.pdf silent %!pdftotext "%" -
     autocmd BufWritePost *.pdf silent !rm -rf ~/PDF/%
     autocmd BufWritePost *.pdf silent !lp -s -d pdffg "%"
     autocmd BufWritePost *.pdf silent !until [ -e ~/PDF/% ]; do sleep 1; done
     autocmd BufWritePost *.pdf silent !mv ~/PDF/% %:p:h
+"}
+
+
+"dictionnary {
+    set spellfile=~/.vim/dict.add
 "}
