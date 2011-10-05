@@ -71,6 +71,11 @@
     "Stop searching with F8 {
         map <F8> :noh<CR>
     "}
+    "
+    "Stop searching with F8 {
+        map <F10> :%!gst-indent<CR>
+    "}
+
 
     "Buffers {
         map <S-b> :b 
