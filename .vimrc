@@ -59,13 +59,16 @@
 
     "split handling {
         map <C-t> :vsplit<CR>
-    "}
+        map <C-s> :split<CR>
+      "}
 
-    "Switch between splited view {
+    "Switch and resize splited view {
         map <C-left> <c-w>h
         map<C-right> <c-w>l
         map <c-down> <c-w>j
         map <c-up> <c-w>k
+        nnoremap <S-down> :vertical resize -5<cr>
+        nnoremap <S-up> :vertical resize +5<cr>
     "}
 
     "Stop searching with F8 {
@@ -177,12 +180,18 @@
         imap <C-space> <Plug>IMAP_JumpForward
     " }
 
+    "Binary {
+      nnoremap <C-b> :Hexmode<CR>
+      inoremap <C-b> <Esc>:Hexmode<CR>
+      vnoremap <C-b> :<C-U>Hexmode<CR>
+    " }
+
 "}
 
 "My plugins configs {
     "My taglist config {
         let Tlist_Close_On_Select = 1
-        let Tlist_Show_One_File = 0
+        let Tlist_Show_One_File = 1
         let Tlist_WinWidth = 55
         let Tlist_GainFocus_On_ToggleOpen = 1
         map <C-a> :TlistToggle <CR>
@@ -260,6 +269,50 @@
          call cursor(curline, curcol)
     endfun
     map <F6> :call CleanText()<CR>
+
+
+    " ex command for toggling hex mode - define mapping if desired
+    command -bar Hexmode call ToggleHex()
+
+    " helper function to toggle hex mode
+    function ToggleHex()
+      " hex mode should be considered a read-only operation
+      " save values for modified and read-only for restoration later,
+      " and clear the read-only flag for now
+      let l:modified=&mod
+      let l:oldreadonly=&readonly
+      let &readonly=0
+      let l:oldmodifiable=&modifiable
+      let &modifiable=1
+      if !exists("b:editHex") || !b:editHex
+        " save old options
+        let b:oldft=&ft
+        let b:oldbin=&bin
+        " set new options
+        setlocal binary " make sure it overrides any textwidth, etc.
+        let &ft="xxd"
+        " set status
+        let b:editHex=1
+        " switch to hex editor
+        %!xxd
+      else
+        " restore old options
+        let &ft=b:oldft
+        if !b:oldbin
+          setlocal nobinary
+        endif
+        " set status
+        let b:editHex=0
+        " return to normal editing
+        %!xxd -r
+      endif
+      " restore values for modified and read only state
+      let &mod=l:modified
+      let &readonly=l:oldreadonly
+      let &modifiable=l:oldmodifiable
+    endfunction
+
+
 "}
 "Pdf handlng{
     autocmd BufReadPost *.pdf silent %!pdftotext "%" -
