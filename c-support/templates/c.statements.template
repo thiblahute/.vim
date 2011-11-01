@@ -1,7 +1,7 @@
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 == statements.do-while ==
 do {
-<SPLIT>} while ( <CURSOR> );				/* -----  end do-while  ----- */
+<SPLIT>} while ( <CURSOR> );
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 == statements.for ==
 for ( <CURSOR>; ; )
@@ -44,24 +44,24 @@ while ( <CURSOR> ) {
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 == statements.switch ==
 switch ( <CURSOR> ) {
-	case 1:	
-		<SPLIT>break;
+  case 1:
+    <SPLIT>break;
 
-	case 2:	
-		break;
+  case 2:
+    break;
 
-	case 3:	
-		break;
+  case 3:
+    break;
 
-	case 4:	
-		break;
+  case 4:
+    break;
 
-	default:	
-		break;
-}				/* -----  end switch  ----- */
+  default:
+    break;
+}
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 == statements.case ==
-case <CURSOR>:	
+case <CURSOR>:
 break;
 
 $%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
