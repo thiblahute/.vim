@@ -106,6 +106,7 @@
     "Make specific {
         "command -nargs=* Make make <args> | cwindow 3
         map <Leader>m :make<CR>
+        map <Leader>i :make install<CR>
         autocmd QuickFixCmdPost [^l]* nested cwindow
         autocmd QuickFixCmdPost    l* nested lwindow
     "}
