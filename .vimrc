@@ -222,7 +222,10 @@
         let NERDTreeIgnore=['\.aux$', '\.bak$', '\.bbl$','\.blg$','\.gif$','\.gz$','\.idx$','\.ilg$','\.info$','\.jpg$','\.lof$','\.log$','\.o$','\.obj$','\.pdf$','\.png$','\.swp$','\.tar$','\.toc$','\.mount$','\.pyc$','\.pyo$','\.lo$','\.tgz$'] "unsed suffixes on file list
         map <C-e> :NERDTree <CR>
     " }
-    "
+
+    "Project{
+        map <C-p> :Project <CR>
+    " }
     "Devhelp {
        let g:devhelpSearch=1
        let g:devhelpSearchKey = '<F3>'
