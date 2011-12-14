@@ -165,6 +165,7 @@
         let g:pydiction_location = '/home/thiblahute/.vim/ftplugin/pydiction/complete-dict'
         "autocmd FileType python autocmd BufWritePre <buffer> let s:saveview = winsaveview() | exe '%!PythonTidy.py' | call winrestview(s:saveview) | unlet s:saveview
         "let g:pep8_map=u'F8'
+        let g:pyflakes_use_quickfix = 1
     "}
     "wiki {
       au BufNewFile,BufRead *.wiki setf Wikipedia
@@ -329,4 +330,14 @@
 
 "dictionnary {
     set spellfile=~/.vim/dict.add
+    "Underline errors
+    highlight clear SpellBad
+    highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+"}
+"
+"Vimdiff {
+    highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
+    highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black
+    highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
+    highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black 
 "}
