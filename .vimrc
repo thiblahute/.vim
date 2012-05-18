@@ -343,5 +343,55 @@
     highlight DiffAdd term=reverse cterm=bold ctermbg=green ctermfg=white
     highlight DiffChange term=reverse cterm=bold ctermbg=cyan ctermfg=black
     highlight DiffText term=reverse cterm=bold ctermbg=gray ctermfg=black
-    highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black 
+    highlight DiffDelete term=reverse cterm=bold ctermbg=red ctermfg=black
+"}
+"
+" INtergrayion with bugzilla {
+
+  " Get the issue number under the cursor. An issue number is containing
+
+  " digits, lating letters and #. The # characters are removed from the result.
+  "
+  " Code heavily inspired from the words_tools.vim of Luc Hermitte
+  " http://hermitte.free.fr/vim/ressources/dollar_VIM/plugin/words_tools_vim.html
+  function! GetCurrentIssueText()
+    let c = col ('.')-1
+    let l = line('.')
+    let ll = getline(l)
+    let ll1 = strpart(ll,0,c)
+    let ll1 = matchstr(ll1,'[0-9#a-zA-Z]*$')
+    if strlen(ll1) == 0
+      return ll1
+    else
+      let ll2 = strpart(ll,c,strlen(ll)-c+1)
+      let ll2 = strpart(ll2,0,match(ll2,'$\|[^0-9#a-zA-Z]'))
+      let text = ll1.ll2
+
+      let text = substitute( text, "#", "", "g" )
+      return text
+    endif
+  endfunction
+
+  " Open IssueZilla / Bugzilla for the selected issue
+  function! OpenIssue( )
+
+      let s:browser = "firefox"
+
+      let s:issueText = GetCurrentIssueText( )
+      let s:urlTemplate = ""
+      let s:pattern = "\\(\\a\\+\\)\\(\\d\\+\\)"
+
+      let s:prefix = substitute( s:issueText, s:pattern, "\\1", "" )
+      let s:id = substitute( s:issueText, s:pattern, "\\2", "" )
+
+      let s:urlTemplate = "https://bugzilla.gnome.org/show_bug.cgi?id=%"
+
+      if s:urlTemplate != ""
+          let s:url = substitute( s:urlTemplate, "%", s:id, "g" )
+          let s:cmd = "silent !" . s:browser . " " . s:url . "&"
+          execute s:cmd
+      endif
+  endfunction
+
+  map <silent> <C-i> :call OpenIssue()<CR><C-l>
 "}
