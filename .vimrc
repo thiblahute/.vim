@@ -42,6 +42,9 @@
 
 "maping {
 
+    "Save
+    map <Leader>w :w <CR>
+
     "Errors handling {
     map <C-n> :cn<CR>
     map <C-p> :cN<CR>
@@ -106,6 +109,7 @@
     "Make specific {
         "command -nargs=* Make make <args> | cwindow 3
         map <Leader>m :make<CR>
+        map <Leader>l :make ERROR_CFLAGS=""<CR>
         map <Leader>i :make install<CR>
         autocmd QuickFixCmdPost [^l]* nested cwindow
         autocmd QuickFixCmdPost    l* nested lwindow
@@ -183,9 +187,9 @@
     " }
 
     "Binary {
-      nnoremap <C-b> :Hexmode<CR>
-      inoremap <C-b> <Esc>:Hexmode<CR>
-      vnoremap <C-b> :<C-U>Hexmode<CR>
+      "nnoremap <C-b> :Hexmode<CR>
+      "inoremap <C-b> <Esc>:Hexmode<CR>
+      "vnoremap <C-b> :<C-U>Hexmode<CR>
     " }
 
 "}
@@ -279,7 +283,7 @@
     " ex command for toggling hex mode - define mapping if desired
     command -bar Hexmode call ToggleHex()
 
-    " helper function to toggle hex mode
+    "" helper function to toggle hex mode
     function ToggleHex()
       " hex mode should be considered a read-only operation
       " save values for modified and read-only for restoration later,
