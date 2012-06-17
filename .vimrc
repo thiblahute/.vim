@@ -78,9 +78,6 @@
         map <F8> :noh<CR>
     "}
     "
-    "Stop searching with F8 {
-        map <F10> :%!gst-indent<CR>
-    "}
 
 
     "Buffers {
@@ -157,6 +154,10 @@
         au BufRead,BufNewFile *.vapi            setfiletype vala
     "}
 
+    " C  {
+        autocmd FileType c map <C-F6> :silent %!gst-indent<CR>
+    "}
+
     "python {
         au BufRead,BufNewFile *.py            setfiletype python
         let python_highlight_all = 1
@@ -173,6 +174,10 @@
     "}
     "wiki {
       au BufNewFile,BufRead *.wiki setf Wikipedia
+    "}
+
+    " xml {
+      au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
     "}
 
     "Latex specific {
@@ -395,3 +400,8 @@
 
   map <silent> <C-i> :call OpenIssue()<CR><C-l>
 "}
+
+"{ Intergration with screen
+if match($TERM, "screen")!=-1
+  set term=xterm
+endif
